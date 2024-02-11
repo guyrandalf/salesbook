@@ -1,4 +1,4 @@
-<x-layout.admin>
+<x-layout.rep>
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             <x-nav />
@@ -389,4 +389,4 @@
         });
     </script>
 
-</x-layout.admin>
+</x-layout.rep>

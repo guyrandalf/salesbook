@@ -41,6 +41,9 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/admin/stock/{id}', [AdminController::class, 'deleteStock'])->name('stock.delete');
     // Stock Route Ends
 
+    // Change Sale Status
+    Route::post('/admin/complete-sale/{transactionId}', [AdminController::class, 'completeSale'])->name('complete.sale');
+
     //Get Quantity for sale
     Route::get('/get-stock-quantity/{productId}', [RepController::class, 'getStockQuantity']);
 

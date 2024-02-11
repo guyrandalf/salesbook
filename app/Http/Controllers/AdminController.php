@@ -2,17 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Rep;
-use App\Models\Stock;
+use App\Models\Sale;
 use App\Models\User;
+use App\Models\Stock;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
     public function index()
+    {        
+        $sales = Sale::with('product')->get();
+        $products = Stock::with('product')->get();
+
+        return view('admin.index', compact(
+            'products',
+            'sales'
+        ));        
+    }
+
+    public function completeSale($transactionId)
     {
-        return view('admin.index');
+        // Find the sale record by transaction ID
+        $sale = Sale::where('trans_id', $transactionId)->first();
+
+        if ($sale) {
+            // Update the status to 1
+            $sale->update(['status' => 1]);
+
+            // Optionally, you can perform other actions here
+
+            return redirect()->back()->with('message', 'Sale confirmed successfully')->with('type', 'success');
+        }
+
+        return redirect()->back()->with('message', 'Sale not found')->with('type', 'error');
     }
 
     public function products()
